@@ -2,6 +2,7 @@
 using SchoolsSys.BL.Repository;
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 
 namespace SchoolsSys.BL.UnitOfWork
@@ -12,9 +13,41 @@ namespace SchoolsSys.BL.UnitOfWork
         DbContextTransaction dbContextTransaction = null;
         private bool disposed = false;
 
-        public UnitOfWork()
+        public UnitOfWork(SchoolsSysDBContext dbContext, bool lazyLoadingEnabled = false)
         {
-            _dbContext = new SchoolsSysDBContext();
+            _dbContext = dbContext;
+            _dbContext.Database.CommandTimeout = 60;
+            _dbContext.Configuration.LazyLoadingEnabled = lazyLoadingEnabled;
+        }
+
+        #region Repos
+        IRepositoryBase<Student> _studentsRepo;
+        public IRepositoryBase<Student> StudentsRepo
+        {
+            get
+            {
+                if (_studentsRepo == null)
+                    _studentsRepo = new RepositoryBase<Student>(_dbContext);
+                return _studentsRepo;
+            }
+        }
+
+        IRepositoryBase<Attachment> _attachmentsRepo;
+        public IRepositoryBase<Attachment> AttachmentsRepo
+        {
+            get
+            {
+                if (_attachmentsRepo == null)
+                    _attachmentsRepo = new RepositoryBase<Attachment>(_dbContext);
+                return _attachmentsRepo;
+            }
+        }
+        #endregion
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -29,12 +62,6 @@ namespace SchoolsSys.BL.UnitOfWork
             this.disposed = true;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public async Task<int> SaveChanges()
         {
             try
@@ -45,13 +72,10 @@ namespace SchoolsSys.BL.UnitOfWork
                 }
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+            }
             return -1;
-        }
-
-        public DbContext Context
-        {
-            get { return _dbContext; }
         }
 
         public void BeginTransaction()
@@ -81,32 +105,18 @@ namespace SchoolsSys.BL.UnitOfWork
             dbContextTransaction.Rollback();
         }
 
-        private IStudentsRepository studentsRepo;
-        public IStudentsRepository StudentsRepo
+        public DbRawSqlQuery<T> QueryFromDB<T>(string queryText)
         {
-            get
-            {
-                if (studentsRepo == null)
-                {
-                    studentsRepo = new StudentsRepository(_dbContext);
-                }
-
-                return studentsRepo;
-            }
+            var result = _dbContext.Database.SqlQuery<T>(queryText);
+            return result;
         }
 
-        private IAttachmentsRepository attachmentsRepo;
-        public IAttachmentsRepository AttachmentsRepo
+        public DbRawSqlQuery<T> QueryFromDB<T>(string queryText, params object[] parameters)
         {
-            get
-            {
-                if (attachmentsRepo == null)
-                {
-                    attachmentsRepo = new AttachmentsRepository(_dbContext);
-                }
-
-                return attachmentsRepo;
-            }
+            var result = _dbContext.Database.SqlQuery<T>(queryText, parameters);
+            return result;
         }
+
+        
     }
 }

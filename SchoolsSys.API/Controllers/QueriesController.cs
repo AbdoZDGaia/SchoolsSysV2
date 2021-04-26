@@ -2,6 +2,7 @@
 using SchoolsSys.BL.DTOs;
 using SchoolsSys.BL.LookupsAggregate;
 using SchoolsSys.BL.Models;
+using SchoolsSys.BL.Repository;
 using SchoolsSys.BL.UnitOfWork;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -11,18 +12,23 @@ namespace SchoolsSys.API.Controllers
     [RoutePrefix("api/Queries")]
     public class QueriesController : ApiController
     {
-        private readonly IUnitOfWork _unitOfWork;
+        IStudentsService _studentsService;
 
-        public QueriesController(IUnitOfWork unitOfWork)
+        IStudentsService StudentsService
         {
-            _unitOfWork = unitOfWork;
+            get
+            {
+                if (_studentsService == null)
+                    _studentsService = new StudentsService();
+                return _studentsService;
+            }
         }
 
         [HttpGet]
         [Route("GetAllStudents")]
         public List<StudentDTO> GetAllStudents()
         {
-            var result = _unitOfWork.StudentsRepo.GetAllStudents();
+            var result = StudentsService.GetAllStudents();
             return result;
         }
 
@@ -30,7 +36,7 @@ namespace SchoolsSys.API.Controllers
         [Route("GetStudentsById")]
         public StudentDTO GetStudentsById(int StudentId)
         {
-            var result = _unitOfWork.StudentsRepo.GetFirstOrDefault(s => s.StudentId == StudentId).ConvertToStudentDTO();
+            var result = StudentsService.GetStudentsById(StudentId);
             return result;
         }
 

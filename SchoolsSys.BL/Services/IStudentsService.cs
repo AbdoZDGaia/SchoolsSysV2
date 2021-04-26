@@ -9,12 +9,13 @@ using System.Web;
 
 namespace SchoolsSys.BL.Repository
 {
-    public interface IStudentsRepository : IRepositoryBase<Student>
+    public interface IStudentsService 
     {
         List<StudentDTO> GetAllStudents();
         List<StudentDTO> GetAllStudentsPaging(int pageIndex,int pageSize);
         StudentDTO GetStudentsById(int id);
         string UploadProfileImage(HttpRequest Request);
         List<string> UploadAttachments(HttpRequest Request);
+        StudentDTO CreateStudent(StudentDTO student);
     }
 }

@@ -9,7 +9,7 @@ using System.Web;
 
 namespace SchoolsSys.BL.Repository
 {
-    public interface IAttachmentsRepository : IRepositoryBase<Attachment>
+    public interface IAttachmentsService
     {
         string UploadAttachment(HttpRequest Request);
     }

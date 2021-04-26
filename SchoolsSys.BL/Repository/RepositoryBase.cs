@@ -1,4 +1,5 @@
-﻿using SchoolsSys.BL.UnitOfWork;
+﻿using SchoolsSys.BL.Models;
+using SchoolsSys.BL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,19 +11,12 @@ namespace SchoolsSys.BL.Repository
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
 
-        protected readonly DbContext Context;
-        private readonly IUnitOfWork _uow;
-
-        public RepositoryBase(IUnitOfWork uow)
+        internal SchoolsSysDBContext Context;
+        internal DbSet<TEntity> dbSet;
+        public RepositoryBase(SchoolsSysDBContext context)
         {
-            Context = uow.Context;
-            _uow = uow;
-        }
-
-        public RepositoryBase(DbContext context)
-        {
-            Context = context;
-            Context.Configuration.LazyLoadingEnabled = false;
+            this.Context = context;
+            this.dbSet = context.Set<TEntity>();
         }
 
         public void Add(TEntity entity)

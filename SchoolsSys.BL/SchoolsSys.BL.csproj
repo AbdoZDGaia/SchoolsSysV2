@@ -107,13 +107,15 @@
       <DependentUpon>SchoolsSysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IAttachmentsRepository.cs" />
-    <Compile Include="Repository\IStudentsRepository.cs" />
+    <Compile Include="Repository\AttachmentsManager.cs" />
+    <Compile Include="Repository\IAttachmentsService.cs" />
+    <Compile Include="Services\IStudentsService.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
+    <Compile Include="Managers\StudentsManager.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
-    <Compile Include="Repository\AttachmentsRepository.cs" />
-    <Compile Include="Repository\StudentsRepository.cs" />
+    <Compile Include="Repository\AttachmentsService.cs" />
+    <Compile Include="Services\StudentsService.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

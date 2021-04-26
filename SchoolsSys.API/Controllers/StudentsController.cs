@@ -1,5 +1,6 @@
 ﻿using SchoolsSys.BL.Converters;
 using SchoolsSys.BL.DTOs;
+using SchoolsSys.BL.Repository;
 using SchoolsSys.BL.UnitOfWork;
 using System.Collections.Generic;
 using System.Web;
@@ -10,11 +11,16 @@ namespace SchoolSys.API.Controllers
     [RoutePrefix("api/Students")]
     public class StudentsController : ApiController
     {
-        private readonly IUnitOfWork _unitOfWork;
+        IStudentsService _studentsService;
 
-        public StudentsController(IUnitOfWork unitOfWork)
+        IStudentsService StudentsService
         {
-            _unitOfWork = unitOfWork;
+            get
+            {
+                if (_studentsService == null)
+                    _studentsService = new StudentsService();
+                return _studentsService;
+            }
         }
 
 
@@ -26,17 +32,14 @@ namespace SchoolSys.API.Controllers
             {
                 return new StudentDTO();
             }
-            _unitOfWork.StudentsRepo.Add(EntityConverters.PopulateNewStudentFromDTO(student));
-            _unitOfWork.Commit();
-            return student;
+            return StudentsService.CreateStudent(student);
         }
 
         [HttpPost]
         [Route("Upload")]
         public string Upload()
         {
-            var result = _unitOfWork.StudentsRepo.UploadProfileImage(HttpContext.Current.Request);
-            _unitOfWork.Commit();
+            var result = StudentsService.UploadProfileImage(HttpContext.Current.Request);
 
             switch (result)
             {
@@ -51,9 +54,7 @@ namespace SchoolSys.API.Controllers
         [Route("UploadFiles")]
         public List<string> UploadFiles()
         {
-            var result = _unitOfWork.StudentsRepo.UploadAttachments(HttpContext.Current.Request);
-            _unitOfWork.Commit();
-
+            var result = StudentsService.UploadAttachments(HttpContext.Current.Request);
             return result;
         }
     }

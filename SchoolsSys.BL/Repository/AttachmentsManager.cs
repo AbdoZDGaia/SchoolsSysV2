@@ -1,34 +1,29 @@
-﻿using SchoolsSys.BL.Converters;
-using SchoolsSys.BL.DTOs;
-using SchoolsSys.BL.Models;
+﻿using SchoolsSys.BL.UnitOfWork;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace SchoolsSys.BL.Repository
 {
-    public class AttachmentsRepository : RepositoryBase<Attachment>, IAttachmentsRepository
+    internal class AttachmentsManager
     {
-        public SchoolsSysDBContext SchoolsSysDBContext
-        {
-            get { return Context as SchoolsSysDBContext; }
-        }
+        private IUnitOfWork _unitOfWork;
 
-        public AttachmentsRepository(SchoolsSysDBContext ctx) : base(ctx)
+        public AttachmentsManager()
         {
         }
 
-        public string UploadAttachment(HttpRequest Request)
+        public AttachmentsManager(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        internal string UploadAttachment(HttpRequest request)
         {
             try
             {
-                var file = Request.Files[0];
+                var file = request.Files[0];
                 var folderName = ConfigurationManager.AppSettings["AttachmentsUploads"];
                 var pathToSave = Path.Combine(HttpContext.Current.Server.MapPath("~/"), folderName);
 
