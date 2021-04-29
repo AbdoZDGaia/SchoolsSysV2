@@ -9,9 +9,11 @@ namespace SchoolsSys.BL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
+        #region UoW props
         private SchoolsSysDBContext _dbContext;
         DbContextTransaction dbContextTransaction = null;
         private bool disposed = false;
+        #endregion
 
         public UnitOfWork(SchoolsSysDBContext dbContext, bool lazyLoadingEnabled = false)
         {
@@ -44,6 +46,8 @@ namespace SchoolsSys.BL.UnitOfWork
         }
         #endregion
 
+
+        #region UoW
         public void Dispose()
         {
             Dispose(true);
@@ -116,7 +120,6 @@ namespace SchoolsSys.BL.UnitOfWork
             var result = _dbContext.Database.SqlQuery<T>(queryText, parameters);
             return result;
         }
-
-        
+        #endregion
     }
 }
