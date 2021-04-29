@@ -14,13 +14,11 @@ namespace SchoolsSys.BL.Repository
 {
     public class StudentsService : IStudentsService
     {
-        private readonly SchoolsSysDBContext _ctx;
         private readonly IUnitOfWork _unitOfWork;
 
         public StudentsService()
         {
-            _ctx = new SchoolsSysDBContext();
-            _unitOfWork = new UnitOfWork.UnitOfWork(_ctx);
+            _unitOfWork = new UnitOfWork.UnitOfWork(new SchoolsSysDBContext());
         }
 
         public string UploadProfileImage(HttpRequest Request)

@@ -16,13 +16,11 @@ namespace SchoolsSys.BL.Repository
 {
     public class AttachmentsService : IAttachmentsService
     {
-        private readonly SchoolsSysDBContext _ctx;
         private readonly IUnitOfWork _unitOfWork;
 
         public AttachmentsService()
         {
-            _ctx = new SchoolsSysDBContext();
-            _unitOfWork = new UnitOfWork.UnitOfWork(_ctx);
+            _unitOfWork = new UnitOfWork.UnitOfWork(new SchoolsSysDBContext());
         }
 
 
