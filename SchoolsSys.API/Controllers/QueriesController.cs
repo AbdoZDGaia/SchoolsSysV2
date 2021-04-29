@@ -12,8 +12,8 @@ namespace SchoolsSys.API.Controllers
     [RoutePrefix("api/Queries")]
     public class QueriesController : ApiController
     {
+        #region properties
         IStudentsService _studentsService;
-
         IStudentsService StudentsService
         {
             get
@@ -23,6 +23,18 @@ namespace SchoolsSys.API.Controllers
                 return _studentsService;
             }
         }
+
+        ILookupsService _lookupsService;
+        ILookupsService LookupsService
+        {
+            get
+            {
+                if (_lookupsService == null)
+                    _lookupsService = new LookupsService();
+                return _lookupsService;
+            }
+        }
+        #endregion
 
         [HttpGet]
         [Route("GetAllStudents")]
@@ -44,9 +56,7 @@ namespace SchoolsSys.API.Controllers
         [Route("GetAllGrades")]
         public List<LookupsDTO> GetAllGrades()
         {
-            var _ctx = new SchoolsSysDBContext();
-            var aggr = new LookupAggregate(_ctx);
-            var result = aggr.GetAllGrades();
+            var result = LookupsService.GetAllGrades();
             return result;
         }
 
@@ -54,9 +64,7 @@ namespace SchoolsSys.API.Controllers
         [Route("GetAllClasses")]
         public List<LookupsDTO> GetAllClasses()
         {
-            var _ctx = new SchoolsSysDBContext();
-            var aggr = new LookupAggregate(_ctx);
-            var result = aggr.GetAllClasses();
+            var result = LookupsService.GetAllClasses();
             return result;
         }
 
@@ -64,9 +72,7 @@ namespace SchoolsSys.API.Controllers
         [Route("GetClassesByGradeId")]
         public List<LookupsDTO> GetClassesByGradeId(int gradeId)
         {
-            var _ctx = new SchoolsSysDBContext();
-            var aggr = new LookupAggregate(_ctx);
-            var result = aggr.GetAllClassesByGradeId(gradeId);
+            var result = LookupsService.GetAllClassesByGradeId(gradeId);
             return result;
         }
     }

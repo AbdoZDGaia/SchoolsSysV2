@@ -13,6 +13,8 @@ namespace SchoolsSys.BL.UnitOfWork
         #region Repos
         IRepositoryBase<Student> StudentsRepo { get; }
         IRepositoryBase<Attachment> AttachmentsRepo { get; }
+        IRepositoryBase<Grade> GradesRepo { get; }
+        IRepositoryBase<Class> ClassesRepo { get; }
         #endregion
 
         Task<int> SaveChanges();

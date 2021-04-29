@@ -75,7 +75,9 @@ namespace SchoolsSys.BL.Repository
         {
             try
             {
-                uoW.StudentsRepo.Add(EntityConverters.PopulateNewStudentFromDTO(student));
+                var addedStudent = EntityConverters.PopulateNewStudentFromDTO(student);
+                addedStudent.AddedOn = DateTime.Now;
+                uoW.StudentsRepo.Add(addedStudent);
                 uoW.Commit();
                 return student;
             }

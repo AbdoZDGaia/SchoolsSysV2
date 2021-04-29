@@ -1,6 +1,6 @@
 ﻿using SchoolsSys.BL.Converters;
 using SchoolsSys.BL.DTOs;
-using SchoolsSys.BL.Models;
+using SchoolsSys.BL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +8,20 @@ using System.Web;
 
 namespace SchoolsSys.BL.LookupsAggregate
 {
-    public class LookupAggregate
+    internal class LookupsManager
     {
-        private readonly SchoolsSysDBContext _ctx;
+        private IUnitOfWork _unitOfWork;
 
-        public LookupAggregate(SchoolsSysDBContext ctx)
+        public LookupsManager(IUnitOfWork unitOfWork)
         {
-            _ctx = ctx;
+            _unitOfWork = unitOfWork;
         }
 
-        public List<LookupsDTO> GetAllGrades()
+        internal List<LookupsDTO> GetAllGrades()
         {
             try
             {
-                return _ctx.Grades.ToList().Select(g => g.ConvertToGradeDTO()).ToList();
+                return _unitOfWork.GradesRepo.Get().Select(g => g.ConvertToGradeDTO()).ToList();
             }
             catch (Exception ex)
             {
@@ -31,11 +31,11 @@ namespace SchoolsSys.BL.LookupsAggregate
             }
         }
 
-        public List<LookupsDTO> GetAllClasses ()
+        internal List<LookupsDTO> GetAllClasses()
         {
             try
             {
-                return _ctx.Classes.ToList().Select(g => g.ConvertToClassDTO()).ToList();
+                return _unitOfWork.ClassesRepo.Get().Select(g => g.ConvertToClassDTO()).ToList();
             }
             catch (Exception ex)
             {
@@ -45,11 +45,11 @@ namespace SchoolsSys.BL.LookupsAggregate
             }
         }
 
-        public List<LookupsDTO> GetAllClassesByGradeId(int gradeId)
+        internal List<LookupsDTO> GetAllClassesByGradeId(int gradeId)
         {
             try
             {
-                return _ctx.Classes.Where(c=>c.GradeId == gradeId).ToList().Select(g => g.ConvertToClassDTO()).ToList();
+                return _unitOfWork.ClassesRepo.Get(filter:c => c.GradeId == gradeId).ToList().Select(g => g.ConvertToClassDTO()).ToList();
             }
             catch (Exception ex)
             {

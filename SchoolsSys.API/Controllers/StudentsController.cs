@@ -11,8 +11,8 @@ namespace SchoolSys.API.Controllers
     [RoutePrefix("api/Students")]
     public class StudentsController : ApiController
     {
+        #region properties
         IStudentsService _studentsService;
-
         IStudentsService StudentsService
         {
             get
@@ -22,6 +22,7 @@ namespace SchoolSys.API.Controllers
                 return _studentsService;
             }
         }
+        #endregion
 
 
         [HttpPost]

@@ -60,7 +60,9 @@
     <Compile Include="DTOs\AttachmentDTO.cs" />
     <Compile Include="DTOs\LookupsDTO.cs" />
     <Compile Include="DTOs\StudentDTO.cs" />
-    <Compile Include="LookupsAggregate\LookupAggregate.cs" />
+    <Compile Include="Managers\LookupsManager.cs" />
+    <Compile Include="ServicesInterfaces\ILookupsService.cs" />
+    <Compile Include="ServicesImplementation\LookupsService.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>SchoolsSysModel.tt</DependentUpon>
     </Compile>
@@ -107,15 +109,15 @@
       <DependentUpon>SchoolsSysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AttachmentsManager.cs" />
-    <Compile Include="Repository\IAttachmentsService.cs" />
-    <Compile Include="Services\IStudentsService.cs" />
+    <Compile Include="Managers\AttachmentsManager.cs" />
+    <Compile Include="ServicesInterfaces\IAttachmentsService.cs" />
+    <Compile Include="ServicesInterfaces\IStudentsService.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
     <Compile Include="Managers\StudentsManager.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
-    <Compile Include="Repository\AttachmentsService.cs" />
-    <Compile Include="Services\StudentsService.cs" />
+    <Compile Include="ServicesImplementation\AttachmentsService.cs" />
+    <Compile Include="ServicesImplementation\StudentsService.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

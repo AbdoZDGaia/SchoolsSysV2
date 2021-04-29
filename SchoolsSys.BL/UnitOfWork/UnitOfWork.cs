@@ -44,6 +44,29 @@ namespace SchoolsSys.BL.UnitOfWork
                 return _attachmentsRepo;
             }
         }
+
+
+        IRepositoryBase<Class> _classesRepo;
+        public IRepositoryBase<Class> ClassesRepo
+        {
+            get
+            {
+                if (_classesRepo == null)
+                    _classesRepo = new RepositoryBase<Class>(_dbContext);
+                return _classesRepo;
+            }
+        }
+
+        IRepositoryBase<Grade> _gradesRepo;
+        public IRepositoryBase<Grade> GradesRepo
+        {
+            get
+            {
+                if (_gradesRepo == null)
+                    _gradesRepo = new RepositoryBase<Grade>(_dbContext);
+                return _gradesRepo;
+            }
+        }
         #endregion
 
 
