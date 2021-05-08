@@ -35,7 +35,8 @@ export class UploadComponent implements OnInit {
           this.message = 'Upload success.';
           this.onUploadFinished.emit(event.body);
         }
-      });
+      }
+      );
   }
 
 }

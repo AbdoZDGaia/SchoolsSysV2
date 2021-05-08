@@ -45,10 +45,10 @@ namespace SchoolsSys.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetStudentsById")]
-        public StudentDTO GetStudentsById(int StudentId)
+        [Route("GetStudentById")]
+        public StudentDTO GetStudentById(int StudentId)
         {
-            var result = StudentsService.GetStudentsById(StudentId);
+            var result = StudentsService.GetStudentById(StudentId);
             return result;
         }
 

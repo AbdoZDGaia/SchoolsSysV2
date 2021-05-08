@@ -39,7 +39,7 @@ namespace SchoolsSys.BL.Converters
             return result;
         }
 
-        public static Student PopulateNewStudentFromDTO(StudentDTO student)
+        public static Student PopulateNewStudentFromDTO(this StudentDTO student)
         {
             var result = new Student();
 

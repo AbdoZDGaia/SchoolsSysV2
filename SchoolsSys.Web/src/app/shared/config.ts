@@ -9,7 +9,7 @@ export const config = {
   },
   Queries: {
     GetAllStudentsUrl: "api/Queries/GetAllStudents",
-    GetStudentsByIdUrl: "api/Queries/GetStudentsById",
+    GetStudentByIdUrl: "api/Queries/GetStudentById",
     GetAllGradesUrl: "api/Queries/GetAllGrades",
     GetAllClassesUrl: "api/Queries/GetAllClasses",
     GetClassesByGradeIdUrl: "api/Queries/GetClassesByGradeId",

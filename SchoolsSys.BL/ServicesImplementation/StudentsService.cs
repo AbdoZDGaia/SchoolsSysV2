@@ -1,13 +1,7 @@
-﻿using SchoolsSys.BL.Converters;
-using SchoolsSys.BL.DTOs;
+﻿using SchoolsSys.BL.DTOs;
 using SchoolsSys.BL.Models;
 using SchoolsSys.BL.UnitOfWork;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace SchoolsSys.BL.Repository
@@ -42,7 +36,7 @@ namespace SchoolsSys.BL.Repository
             return result;
         }
 
-        public StudentDTO GetStudentsById(int studentId)
+        public StudentDTO GetStudentById(int studentId)
         {
             var mgr = new StudentsManager(_unitOfWork);
             var result = mgr.GetStudentsById(studentId);

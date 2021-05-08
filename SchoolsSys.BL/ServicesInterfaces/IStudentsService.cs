@@ -13,7 +13,7 @@ namespace SchoolsSys.BL.Repository
     {
         List<StudentDTO> GetAllStudents();
         List<StudentDTO> GetAllStudentsPaging(int pageIndex,int pageSize);
-        StudentDTO GetStudentsById(int id);
+        StudentDTO GetStudentById(int id);
         string UploadProfileImage(HttpRequest Request);
         List<string> UploadAttachments(HttpRequest Request);
         StudentDTO CreateStudent(StudentDTO student);

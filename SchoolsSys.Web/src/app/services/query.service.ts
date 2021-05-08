@@ -24,7 +24,7 @@ export class QueryService {
   }
 
   getStudentById(id: number): Observable<StudentDTO[]> {
-    return this.httpClient.get<StudentDTO[]>(config.EndPoint + config.Queries.GetStudentsByIdUrl + `?studentId=${id}`);
+    return this.httpClient.get<StudentDTO[]>(config.EndPoint + config.Queries.GetStudentByIdUrl + `?studentId=${id}`);
   }
 
   getClassesByGradeId(id: number): Observable<LookupsDTO[]> {

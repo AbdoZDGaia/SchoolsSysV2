@@ -15,8 +15,8 @@ namespace SchoolsSys.BL.Repository
         internal DbSet<TEntity> dbSet;
         public RepositoryBase(SchoolsSysDBContext context)
         {
-            this.Context = context;
-            this.dbSet = context.Set<TEntity>();
+            Context = context;
+            dbSet = context.Set<TEntity>();
         }
 
         public void Add(TEntity entity)
@@ -45,7 +45,7 @@ namespace SchoolsSys.BL.Repository
         int? skip = null,
         int? take = null)
         {
-            IQueryable<TEntity> query = Context.Set<TEntity>();
+            IQueryable<TEntity> query = dbSet;
 
             if (filter != null)
             {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LookupsDTO } from 'src/app/models/lookups.model';
 import { MapMarkersDTO } from 'src/app/models/map-markers-dto';
@@ -9,11 +10,11 @@ import { StudentsService } from 'src/app/services/students.service';
 import { config } from 'src/app/Shared/config';
 
 @Component({
-  selector: 'app-students',
-  templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css']
+  selector: 'app-add-students',
+  templateUrl: './add-student.component.html',
+  styleUrls: ['./add-student.component.css']
 })
-export class StudentsComponent implements OnInit {
+export class AddStudentComponent implements OnInit {
   grades: LookupsDTO[];
   classes: LookupsDTO[];
   dropOffMarker: MapMarkersDTO;
@@ -38,8 +39,9 @@ export class StudentsComponent implements OnInit {
   public response: { dbPath: '' };
 
   constructor(private queryService: QueryService,
-    public studentService: StudentsService,
-    private toast: ToastrService) {
+    private studentService: StudentsService,
+    private toast: ToastrService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -137,5 +139,9 @@ export class StudentsComponent implements OnInit {
     this.formData.DropOffLongitude = markers[1].Longitude;
     this.dropOffMarker = { Latitude: this.formData.DropOffLatitude, Longitude: this.formData.DropOffLongitude, type: 'dropoff' }
     this.pickupMarker = { Latitude: this.formData.PickupLatitude, Longitude: this.formData.PickupLongitude, type: 'pickup' }
+  }
+
+  cancel() {
+    this.router.navigate(['/'])
   }
 }
